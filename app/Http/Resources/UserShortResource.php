@@ -23,6 +23,7 @@ class UserShortResource extends JsonResource
             'phone_number' => $this->phone_number,
             'roles' => $this->roles,
             'avatar' => $this->avatar,
+            'roles' => RoleResource::collection($this->roles),
             'created_at' => $this->created_at?->format(config('panel.datetime_format')),
         ];
     }

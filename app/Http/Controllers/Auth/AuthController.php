@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Mail\OtpMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\AppConfiguration;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
@@ -21,6 +20,7 @@ use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Resources\UserShortResource;
 use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -54,7 +54,8 @@ class AuthController extends Controller
                 $otp = Str::random(8);
 
                 $user->update([
-                    'otp' => $otp
+                    'otp' => Hash::make($otp),
+                    'otp_created_at' => now()
                 ]);
 
                 // ENVOYER UN MAIL AVEC LE CODE OTP
@@ -84,21 +85,29 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
+        // VERIFIER SI LE CODE OTP A EXPIRÉ
         if ($user->otp_created_at < now()->subMinutes(5)) {
-            return $this->handleResponse(trans('auth.token_expired'), Response::HTTP_UNPROCESSABLE_ENTITY, false);
+            return $this->handleResponse([], trans('auth.token_expired'), Response::HTTP_UNPROCESSABLE_ENTITY, false);
         }
 
+        // MATCHER LES OTPS
         if (Hash::check($request->otp, $user->otp)) {
             $user->update(['otp' => null]);
+
+            Log::info('LOGIN OTP SUCCESS');
             Auth::login($user);
 
             $data["token"] = $user->createToken("LaravelSanctumAuth")->plainTextToken;
 
-            $data['user'] = new UserShortResource($user->load('roles', 'permissions', 'profile'));
+
+            // Log::info('PERMISSIONS ', ['perm' => ($user->roles()->get())->permissions()->get()]);
+            // exit();
+
+            $data['user'] = new UserShortResource($user->load('roles.permissions'));
 
             return $this->handleResponse($data, trans('auth.login'));
         }
-        return $this->handleResponse(trans('auth.failed'), Response::HTTP_UNAUTHORIZED, false);
+        return $this->handleResponse([], trans('auth.failed'), Response::HTTP_UNAUTHORIZED, false);
     }
 
 
