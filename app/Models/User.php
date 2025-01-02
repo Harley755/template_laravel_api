@@ -14,15 +14,28 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+
+    public const AVATAR_COLLECTION_NAME = "avatar";
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
+        'phone_number',
+        'is_active',
+        'can_login',
+        'otp',
+        'email_verified_at',
+        'account_set_token',
+        'account_set_token_created_at',
+        'password_reset_token',
+        'password_reset_token_created_at',
     ];
 
     /**

@@ -2,6 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "refresh": "php artisan clear-compiled && composer dump-autoload && php artisan optimize",
+        "clean": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
         "build": "vite build",
         "dev": "vite"
     },
