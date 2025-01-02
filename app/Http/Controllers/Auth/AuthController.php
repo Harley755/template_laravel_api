@@ -104,7 +104,7 @@ class AuthController extends Controller
 
     public function change_password(ChangePasswordRequest $request)
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::find(Auth::user()->id);
 
         if (Hash::check($request->old_password, $user->password)) {
             if (Hash::check($request->password, $user->password)) {
