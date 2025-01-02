@@ -3,19 +3,22 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, InteractsWithMedia;
 
 
     public const AVATAR_COLLECTION_NAME = "avatar";
+    public const CAN_USE_OTP_CONF = 'login.configuration.enable_otp';
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +51,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    protected $appends = [
+        'fullname',
+        'avatar',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -61,6 +70,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function getAvatarAttribute()
+    {
+        return $this->getFirstMedia(User::AVATAR_COLLECTION_NAME);
+    }
+
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 
     public function roles(): BelongsToMany
     {

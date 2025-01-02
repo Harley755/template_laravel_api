@@ -16,5 +16,14 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'not_authenticated' => 'You are not currently authenticated. Please log in with your credentials to access the requested services.',
+    'registered' => 'User successfully registered',
+    'login' => 'User successfully authenticated',
+    'logout' => 'User successfully unauthenticated',
+
+
+    //OTP
+    'otp_sent' => 'OTP successfully sent via email',
+    'token_expired' => 'Token expired',
 
 ];

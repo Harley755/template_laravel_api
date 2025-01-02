@@ -9,5 +9,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+// AUTH
+Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('login/otp', [AuthController::class, 'login_otp'])->name('otp.login');
+Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
