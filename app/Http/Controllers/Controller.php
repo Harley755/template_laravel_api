@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 
 abstract class Controller
 {
@@ -16,5 +18,10 @@ abstract class Controller
         ];
         // return response
         return response()->json($response, $code);
+    }
+
+    public function checkGate(string $permission)
+    {
+        if (Gate::denies($permission)) throw new UnauthorizedException('This action is unauthorized.', Response::HTTP_UNAUTHORIZED);
     }
 }
