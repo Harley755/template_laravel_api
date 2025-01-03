@@ -28,7 +28,7 @@ class AuthController extends Controller
     {
         $user = User::create($request->validated());
 
-        $user->roles()->attach(Role::where('alias', Role::ADMIN_ROLE_ALIAS)->first()->id);
+        $user->roles()->attach(Role::where('alias', Role::CLIENT_ROLE_ALIAS)->first()->id);
 
         $avatar = $request->avatar;
 
@@ -48,6 +48,7 @@ class AuthController extends Controller
         // IDENTIFIANT CORRECTE ?
         if (Auth::attempt($credentials)) {
             if (AppConfiguration::getByCode(User::CAN_USE_OTP_CONF)->value) {
+
                 // RECUPERER L'EMAIL DE L'UTILISATEUR
                 $user = User::where('email', $request->email)->first();
 
@@ -98,10 +99,6 @@ class AuthController extends Controller
             Auth::login($user);
 
             $data["token"] = $user->createToken("LaravelSanctumAuth")->plainTextToken;
-
-
-            // Log::info('PERMISSIONS ', ['perm' => ($user->roles()->get())->permissions()->get()]);
-            // exit();
 
             $data['user'] = new UserShortResource($user->load('roles.permissions'));
 
