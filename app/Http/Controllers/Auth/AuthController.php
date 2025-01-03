@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\UserShortResource;
 use App\Http\Requests\Auth\LoginOTPRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Resources\User\UserShortResource;
 use App\Http\Requests\Auth\ChangePasswordRequest;
 
 class AuthController extends Controller

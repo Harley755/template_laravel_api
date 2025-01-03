@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserShortResource extends JsonResource
+class UserListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,6 @@ class UserShortResource extends JsonResource
             'phone_number' => $this->phone_number,
             'roles' => $this->roles,
             'avatar' => $this->avatar,
-            'roles' => RoleResource::collection($this->roles),
             'created_at' => $this->created_at?->format(config('panel.datetime_format')),
         ];
     }

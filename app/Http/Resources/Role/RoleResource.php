@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Permission\PermissionListResource;
 
-class RoleListResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +16,10 @@ class RoleListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
             'title' => $this->title,
-            'alias' => $this->alias,
             'description' => $this->description,
+            'alias' => $this->alias,
+            'permissions' => PermissionListResource::collection($this->permissions),
         ];
     }
 }

@@ -7,11 +7,11 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Resources\UserListResource;
-use App\Http\Resources\UserShowResource;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\SearchUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\User\UserListResource;
+use App\Http\Resources\User\UserShowResource;
 
 class UserController extends Controller
 {

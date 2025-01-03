@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleShowResource extends JsonResource
+class RoleListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,6 @@ class RoleShowResource extends JsonResource
             'title' => $this->title,
             'alias' => $this->alias,
             'description' => $this->description,
-            'permissions' => PermissionListResource::collection($this->permissions),
         ];
     }
 }
