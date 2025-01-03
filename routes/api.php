@@ -23,4 +23,6 @@ Route::post('app-configurations/search', [AppConfigurationController::class, 'se
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('change-password', [AuthController::class, 'change_password'])->name('change-password');
+
+    Route::apiResource('app-configurations', AppConfigurationController::class)->except(['index']);
 });
