@@ -6,21 +6,19 @@ use App\Models\Role;
 use App\Models\User;
 use App\Mail\OtpMail;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\AppConfiguration;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\LoginOTPRequest;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserShortResource;
-use App\Http\Requests\ChangePasswordRequest;
-use Illuminate\Http\Response;
+use App\Http\Requests\Auth\LoginOTPRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ChangePasswordRequest;
 
 class AuthController extends Controller
 {
@@ -95,7 +93,6 @@ class AuthController extends Controller
         if (Hash::check($request->otp, $user->otp)) {
             $user->update(['otp' => null]);
 
-            Log::info('LOGIN OTP SUCCESS');
             Auth::login($user);
 
             $data["token"] = $user->createToken("LaravelSanctumAuth")->plainTextToken;

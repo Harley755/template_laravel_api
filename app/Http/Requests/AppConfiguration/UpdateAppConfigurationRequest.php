@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\AppConfiguration;
 
+use App\Models\AppConfiguration;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchAppConfigurationRequest extends FormRequest
+class UpdateAppConfigurationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,12 @@ class SearchAppConfigurationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "code" => ["nullable", "string", "max:255"],
+            'code' => ["required", "string", "max:255"],
+            'name' => ["required", "string", "max:255"],
+            'value' => '',
+            'type' => 'in:' . implode(',', AppConfiguration::TYPES),
+            'visible' => ["nullable", "boolean"],
+            'description' => ["nullable", "string"],
         ];
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePasswordRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Gate::allows('password_can_change');
+        return Gate::allows('role_create');
     }
 
     /**
@@ -23,8 +23,11 @@ class ChangePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "old_password" => ["required", "string"],
-            "password" => ["required", "string", "min:8", "confirmed"],
+            "title" => "required|string",
+            "alias" => "required|string",
+            "description" => "nullable|string",
+            "permissions" => "array|nullable",
+            "permissions.*" => "integer|exists:permissions,id",
         ];
     }
 }

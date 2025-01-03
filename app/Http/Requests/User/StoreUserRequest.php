@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Gate::allows('user_edit');
+        return Gate::allows('user_create');
     }
 
     /**
@@ -25,13 +25,13 @@ class UpdateUserRequest extends FormRequest
         return [
             "firstname" => "required|string|max:255",
             "lastname" => "required|string|max:255",
-            "email" => "required|string|email|max:255|unique:users,email," . $this->user->id,
-            "phone_number" => "required|string|max:255|unique:users,phone_number," . $this->user->id,
+            "email" => "required|string|email|max:255|unique:users,email",
+            "phone_number" => "required|string|max:255|unique:users,phone_number",
 
             "roles" => "array|nullable",
             "roles.*" => "string|exists:roles,alias",
 
-            "avatar" => "nullable|file|mimes:jpeg,png,jpg,gif|max:7000"
+            "avatar" => "nullable|file|max:7000"
         ];
     }
 }

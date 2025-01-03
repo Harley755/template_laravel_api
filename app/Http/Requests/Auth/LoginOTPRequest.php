@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use App\Models\AppConfiguration;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAppConfigurationRequest extends FormRequest
+class LoginOTPRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return AppConfiguration::getByCode(User::CAN_USE_OTP_CONF)->value;
     }
 
     /**
@@ -23,12 +24,8 @@ class UpdateAppConfigurationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ["required", "string", "max:255"],
-            'name' => ["required", "string", "max:255"],
-            'value' => '',
-            'type' => 'in:' . implode(',', AppConfiguration::TYPES),
-            'visible' => ["nullable", "boolean"],
-            'description' => ["nullable", "string"],
+            'email' => ['required', 'email'],
+            'otp' => ['required', 'string'],
         ];
     }
 }

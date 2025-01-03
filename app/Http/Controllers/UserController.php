@@ -7,12 +7,11 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\SearchUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserListResource;
 use App\Http\Resources\UserShowResource;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\SearchUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -117,7 +116,6 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        Log::info('User updated', ['user' => $request->validated()]);
         $user->update($request->validated());
 
         if ($request->roles) {
