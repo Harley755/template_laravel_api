@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\AppConfiguration;
-use Illuminate\Support\Facades\Log;
-use App\Http\Requests\StoreAppConfigurationRequest;
-use App\Http\Requests\SearchAppConfigurationRequest;
-use App\Http\Requests\UpdateAppConfigurationRequest;
-use App\Http\Resources\AppConfigurationListResource;
-use App\Http\Resources\AppConfigurationShowResource;
+use App\Http\Requests\AppConfiguration\StoreAppConfigurationRequest;
+use App\Http\Requests\AppConfiguration\SearchAppConfigurationRequest;
+use App\Http\Requests\AppConfiguration\UpdateAppConfigurationRequest;
+use App\Http\Resources\AppConfiguration\AppConfigurationListResource;
+use App\Http\Resources\AppConfiguration\AppConfigurationShowResource;
 
 class AppConfigurationController extends Controller
 {
@@ -23,9 +22,7 @@ class AppConfigurationController extends Controller
 
     public function search(SearchAppConfigurationRequest $request)
     {
-        Log::info('ici');
         $code = $request->code;
-        Log::alert($code);
         $per_page = $request->per_page ?? 10;
 
         $app_configurations = AppConfiguration::orderByDesc('created_at');
