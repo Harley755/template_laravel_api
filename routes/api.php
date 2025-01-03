@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AppConfigurationController;
 
 Route::get('/user', function (Request $request) {
@@ -22,7 +25,22 @@ Route::get('app-configurations/{app_configuration}', [AppConfigurationController
 Route::post('app-configurations/search', [AppConfigurationController::class, 'search'])->name('app-configurations.search');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::post('change-password', [AuthController::class, 'change_password'])->name('change-password');
+    // User
+    Route::post('users/search', [UserController::class, 'search'])->name('users.search');
+    Route::apiResource('users', UserController::class);
 
+    // Roles
+    Route::apiResource('roles', RoleController::class);
+    Route::post('roles/search', [RoleController::class, 'search'])->name('roles.search');
+    Route::post('roles/permissions/manage', [RoleController::class, 'permission_manage'])->name('roles.permissions.manage');
+
+    // Permission
+    Route::apiResource('permissions', PermissionController::class);
+    Route::post('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
+
+    // App Configurations
     Route::apiResource('app-configurations', AppConfigurationController::class)->except(['index']);
+
+    // Change Password
+    Route::post('change-password', [AuthController::class, 'change_password'])->name('change-password');
 });
