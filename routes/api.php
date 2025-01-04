@@ -21,7 +21,6 @@ Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 
 // App Configurations
 Route::get('app-configurations', [AppConfigurationController::class, 'index'])->name('app-configurations.index');
-Route::get('app-configurations/{app_configuration}', [AppConfigurationController::class, 'show'])->name('app-configurations.show');
 Route::post('app-configurations/search', [AppConfigurationController::class, 'search'])->name('app-configurations.search');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -39,7 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
 
     // App Configurations
-    Route::apiResource('app-configurations', AppConfigurationController::class)->except(['index']);
+    Route::apiResource('app-configurations', AppConfigurationController::class)->except(['index',]);
 
     // Change Password
     Route::post('change-password', [AuthController::class, 'change_password'])->name('change-password');

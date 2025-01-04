@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Response;
-use App\Http\Resources\RoleListResource;
-use App\Http\Resources\RoleShowResource;
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Role\ManageRoleRequest;
 use App\Http\Requests\Role\SearchRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
-use App\Http\Resources\PermissionListResource;
+use App\Http\Resources\Role\RoleListResource;
+use App\Http\Resources\Role\RoleShowResource;
+use App\Http\Resources\Permission\PermissionListResource;
 
 class RoleController extends Controller
 {
