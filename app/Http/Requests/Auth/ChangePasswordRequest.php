@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Traits\Requests\Requestable;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordRequest extends FormRequest
 {
+    use Requestable;
+
     /**
      * Determine if the user is authorized to make this request.
      */

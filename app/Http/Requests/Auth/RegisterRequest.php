@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Traits\Requests\Requestable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegisterRequest extends FormRequest
 {
+    use Requestable;
+
     /**
      * Determine if the user is authorized to make this request.
      */

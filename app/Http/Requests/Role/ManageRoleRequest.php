@@ -3,11 +3,14 @@
 namespace App\Http\Requests\Role;
 
 use App\Models\Permission;
+use App\Traits\Requests\Requestable;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ManageRoleRequest extends FormRequest
 {
+    use Requestable;
+
     /**
      * Determine if the user is authorized to make this request.
      */

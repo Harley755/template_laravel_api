@@ -3,10 +3,15 @@
 namespace App\Http\Requests\AppConfiguration;
 
 use App\Models\AppConfiguration;
+use App\Traits\Requests\Requestable;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAppConfigurationRequest extends FormRequest
 {
+    use Requestable;
+
+    use Requestable;
+
     /**
      * Determine if the user is authorized to make this request.
      */
