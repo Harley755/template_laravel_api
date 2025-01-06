@@ -13,7 +13,16 @@ use App\Http\Resources\AppConfiguration\AppConfigurationShowResource;
 
 class AppConfigurationController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * @SWG\Get(
+     *     path="/users",
+     *     summary="Get a list of users",
+     *     tags={"Users"},
+     *     @SWG\Response(response=200, description="Successful operation"),
+     *     @SWG\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function index()
     {
         $per_page = ($request->per_page > 100) ? 10 : $request->per_page;
 

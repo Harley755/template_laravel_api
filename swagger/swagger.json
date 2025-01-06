@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of users",
+                "description": "Returns list of users",
+                "operationId": "getUsersList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserListResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserListResource": {
+                "title": "UserListResource",
+                "description": "User resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "description": "ID",
+                                    "type": "integer"
+                                },
+                                "firstname": {
+                                    "description": "First Name",
+                                    "type": "string"
+                                },
+                                "lastname": {
+                                    "description": "Last Name",
+                                    "type": "string"
+                                },
+                                "fullname": {
+                                    "description": "Full Name",
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "description": "Email",
+                                    "type": "string",
+                                    "format": "email"
+                                },
+                                "phone_number": {
+                                    "description": "Phone Number",
+                                    "type": "string"
+                                },
+                                "roles": {
+                                    "description": "Roles",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "avatar": {
+                                    "description": "Avatar URL",
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "description": "Created At",
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserListResource"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "fullname": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "admin@app.com"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "example": "http://example.com/avatar.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-01T00:00:00Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

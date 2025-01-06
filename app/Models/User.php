@@ -99,9 +99,16 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Role::class);
     }
 
-    public function permissions()
+    // public function permissions()
+    // {
+    //     return $this->belongsToMany(Permission::class, 'role_user', 'user_id', 'permission_id')
+    //         ->through(Role::class);
+    // }
+
+
+    // Méthode personnalisée pour obtenir les permissions via les rôles
+    public function getPermissionsAttribute()
     {
-        return $this->belongsToMany(Permission::class, 'role_user', 'user_id', 'permission_id')
-            ->through(Role::class);
+        return $this->roles->load('permissions')->pluck('permissions')->flatten()->unique('id');
     }
 }
